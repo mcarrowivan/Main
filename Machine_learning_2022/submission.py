@@ -27,7 +27,7 @@ class f1:
 
 class f2:
     def __call__(self, x: float):
-        a = numpy.sin(3 * numpy.sqrt(x ** 3) + 2) + x ** 2
+        a = np.sin(3 * np.sqrt(x ** 3) + 2) + x ** 2
         return a
 
     def grad(self, x: float):
@@ -37,7 +37,7 @@ class f2:
         Returns :
             float
         """
-        d = 0.5 * x * (9 * x / numpy.sqrt(x ** 3) + 4) * numpy.cos(3 * numpy.sqrt(x ** 3) + x ** 2 + 6)
+        d = 0.5 * x * (9 * x / np.sqrt(x ** 3) + 4) * np.cos(3 * np.sqrt(x ** 3) + x ** 2 + 6)
         return d
 
     # def hess(self, x: float):
