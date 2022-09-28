@@ -11,16 +11,15 @@ class f1:
             float
         """
 
-        g = lambda x: (x ** 2)
-        grad1 = nd.Gradient(g)([x])
-        return grad1
+        g = 2*x
+        return g
 
-#     def hess ( self , x : float ) :
-#     """
-#     Args :
-#         x : float
-#     Returns :
-#         float
-#     """
-#     ...
-#     return
+    def hess ( self , x : float ) :
+    """
+    Args :
+        x : float
+    Returns :
+        float
+    """
+    h = 2
+    return h
