@@ -50,3 +50,90 @@ class f2:
     #     ...
     #
     #     return
+class f3:
+    def __call__(self, x: np.ndarray):
+        """
+        Args:
+            x: numpy array of shape (2,)
+        Returns:
+            float
+        """
+        f_3 = (x[0] - 3.3) ** 2 / 4 + (x[1] + 1.7) ** 2 / 15
+        return f_3
+
+    def grad(self, x: np.ndarray):
+        """
+        Args:
+            x: numpy array of shape (2,)
+        Returns:
+            np.ndarray of shape (2,)
+        """
+        pass
+
+    def hess(self, x: np.ndarray):
+        """
+        Args:
+            x: numpy array of shape (2,)
+        Returns:
+            np.ndarray of shape (2, 2)
+        """
+        pass
+class SquaredL2Norm:
+    def __call__(self, x: np.ndarray):
+        """
+        Args:
+            x: numpy array of shape (n,)
+        Returns:
+            float
+        """
+        a = np.linalg.norm((np.array([-0.83, 2.2])))**2
+        return a
+
+    def grad(self, x: np.ndarray):
+        """
+        Args:
+            x: numpy array of shape (n,)
+        Returns:
+            np.ndarray of shape (n,)
+        """
+        pass
+
+    def hess(self, x: np.ndarray):
+        """
+        Args:
+            x: numpy array of shape (n,)
+        Returns:
+            np.ndarray of shape (n, n)
+        """
+        pass
+
+
+class Himmelblau:
+    def __call__(self, x: np.ndarray):
+        a = (x[0]**2+x[1]-11)**2+(x[0]+x[1]**2-7)**2
+        return a
+        """
+        Args:
+            x: numpy array of shape (2,)
+        Returns:
+            float
+        """
+        pass
+
+    def grad(self, x: np.ndarray):
+        """
+        Args:
+            x: numpy array of shape (2,)
+        Returns:
+            numpy array of shape (2,)
+        """
+        pass
+
+    def hess(self, x: np.ndarray):
+        """
+        Args:
+            x: numpy array of shape (2,)
+        Returns:
+            numpy array of shape (2, 2)
+        """
+        pass
