@@ -89,7 +89,7 @@ class SquaredL2Norm:
         Returns:
             float
         """
-        a = np.linalg.norm((np.array([-0.83, 2.2])))**2
+        a = np.linalg.norm(x)**2
         return a
 
     def grad(self, x: np.ndarray):
@@ -139,4 +139,50 @@ class Himmelblau:
         Returns:
             numpy array of shape (2, 2)
         """
+        pass
+
+class Rosenbrok:
+    def __call__(self, x: np.ndarray):
+
+        """
+        Args:
+            x: numpy array of shape (n,) (n >= 2)
+        Returns:
+            float
+        """
+        assert x.shape[0] >= 2, "x.shape[0] должен быть >= 2"
+        sum = 0
+        for i in range(len(x) - 1):
+            sum += 100 * (x[i + 1] - x[i] ** 2) ** 2 + (1 - x[i]) ** 2
+
+        return sum
+
+    def grad(self, x: np.ndarray):
+
+        """
+        Args:
+            x: numpy array of shape (n,) (n >= 2)
+        Returns:
+            numpy array of shape (n,)
+        """
+
+        len_x = x.shape[0]
+
+        assert len_x >= 2, "x.shape[0] должен быть >= 2"
+
+        pass
+
+    def hess(self, x: np.ndarray):
+
+        """
+        Args:
+            x: numpy array of shape (n,) (n >= 2)
+        Returns:
+            numpy array of shape (n, n)
+        """
+
+        len_x = x.shape[0]
+
+        assert len_x >= 2, "x.shape[0] должен быть >= 2"
+
         pass
