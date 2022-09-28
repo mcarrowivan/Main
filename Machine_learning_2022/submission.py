@@ -1,3 +1,6 @@
+import numpy as np
+from typing import Callable, Tuple, Union, List
+
 class f1:
     def __call__(self, x: float):
         a = x ** 2
