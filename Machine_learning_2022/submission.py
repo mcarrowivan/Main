@@ -250,29 +250,16 @@ class Rosenbrok:
         len_x = x.shape[0]
 
         assert len_x >= 2, "x.shape[0] должен быть >= 2"
-        #
-        # fin = []
-        # el11 = -400 * (x[1] - x[0] ** 2) + 800 * x[0] ** 2 + 2
-        # fin.append(el11)
-        # for i in np.array(range(len_x - 2)) + 1:
-        #     elii = 2 * 100 - 4 * 100 * (x[i + 1] - x[i] ** 2) + 8 * 100 * x[i] ** 2 + 2
-        #     hes.append(elii)
-        #
-        # elnn = 200
-        # fin.append(elnn)
-        #
-        # hes_matrix = np.diag(fin) + np.diag(-400 * x[:-1], k=1) + np.diag(-400 * x[:-1], k=-1)
-        # return hes_matrix
 
         hes = []
-        x_11 = -4 * 100 * (x[1] - x[0] ** 2) + 8 * 100 * x[0] ** 2 + 2
-        hes.append(x_11)
+        elem_11 = -4 * 100 * (x[1] - x[0] ** 2) + 8 * 100 * x[0] ** 2 + 2
+        hes.append(elem_11)
         for i in np.array(range(len_x - 2)) + 1:
-            x_ii = 2 * 100 - 4 * 100 * (x[i + 1] - x[i] ** 2) + 8 * 100 * x[i] ** 2 + 2
-            hes.append(x_ii)
+            elem_ii = 2 * 100 - 4 * 100 * (x[i + 1] - x[i] ** 2) + 8 * 100 * x[i] ** 2 + 2
+            hes.append(elem_ii)
 
-        x_nn = 200
-        hes.append(x_nn)
+        elem_nn = 200
+        hes.append(elem_nn)
 
         hes_matrix = np.diag(hes) + np.diag(-400 * x[:-1], k=1) + np.diag(-400 * x[:-1], k=-1)
         return hes_matrix
