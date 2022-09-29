@@ -136,7 +136,15 @@ class SquaredL2Norm:
         Returns:
             np.ndarray of shape (n,)
         """
-        pass
+
+        def f(x):
+            return np.linalg.norm(x) ** 2
+
+
+        final = np.array([])
+        for i in range(len(x)):
+            final = np.append(final, scipy.misc.derivative(f, np.array(x[i]), n=1, dx=1e-6))
+        return final
 
     def hess(self, x: np.ndarray):
         """
@@ -145,7 +153,13 @@ class SquaredL2Norm:
         Returns:
             np.ndarray of shape (n, n)
         """
-        pass
+        def f(x):
+            return np.linalg.norm(x) ** 2
+
+        final = np.array([])
+        for i in range(len(x)):
+            final = np.append(final, scipy.misc.derivative(f, np.array(x[i]), n=2, dx=1e-6))
+        return final[0] * np.eye(final.shape[0])
 
 
 class Himmelblau:
