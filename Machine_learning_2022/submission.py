@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.misc
 from typing import Callable, Tuple, Union, List
 
 class f1:
@@ -40,8 +41,12 @@ class f2:
         Returns :
             float
         """
-        d = 0.5 * x * (9 * x / np.sqrt(x ** 3) + 4) * np.cos(3 * np.sqrt(x ** 3) + x ** 2 + 6)
-        return d
+        # d = 0.5 * x * (9 * x / np.sqrt(x ** 3) + 4) * np.cos(3 * np.sqrt(x ** 3) + x ** 2 + 6)
+        # return d
+        def f(x):
+            return np.sin(3 * np.sqrt(x ** 3) + 2) + x ** 2
+
+        return scipy.misc.derivative(f, 1.0, dx=1e-6)
 
     # def hess(self, x: float):
     #     """
