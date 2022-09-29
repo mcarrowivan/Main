@@ -61,7 +61,7 @@ class f2:
         if x > 2:
             return scipy.misc.derivative(f, x, n = 2, dx=1e-5)
         else:
-            return scipy.misc.derivative(f, x, n=2, dx=1e-6)
+            return scipy.misc.derivative(f, x, n = 2, dx=1e-6)
 
 class f3:
     def __call__(self, x: np.ndarray):
@@ -158,7 +158,7 @@ class Himmelblau:
         Returns:
             float
         """
-        pass
+
 
     def grad(self, x: np.ndarray):
         """
@@ -167,7 +167,19 @@ class Himmelblau:
         Returns:
             numpy array of shape (2,)
         """
-        pass
+        def partial_derivative(func, var=0, point=[]):
+            args = point[:]
+
+            def wraps(x):
+                args[var] = x
+                return func(*args)
+
+            return scipy.misc.derivative(wraps, point[var], dx=1e-5)
+
+        def f(x, y):
+            return (x**2+y-11)**2+(x+y**2-7)**2
+
+        return np.array([[partial_derivative(f, 0, [x[0], x[1]]),0], [0,partial_derivative(f, 1, [x[0], x[1]])]])
 
     def hess(self, x: np.ndarray):
         """
