@@ -159,7 +159,7 @@ class SquaredL2Norm:
         final = np.array([])
         for i in range(len(x)):
             final = np.append(final, scipy.misc.derivative(f, np.array(x[i]), n=2, dx=1e-6))
-        return final[0] * np.eye(final.shape[0])
+        return 2 * np.eye(final.shape[0])
 
 
 class Himmelblau:
