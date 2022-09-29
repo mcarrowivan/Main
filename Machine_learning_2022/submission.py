@@ -79,10 +79,19 @@ class f3:
             np.ndarray of shape (2,)
         """
 
-        def f(x):
-            return (x[0] - 3.3) ** 2 / 4 + (x[1] + 1.7) ** 2 / 15
+        def partial_derivative(func, var=0, point=[]):
+            args = point[:]
 
-        return scipy.misc.derivative(f, x, dx=1e-5)
+            def wraps(x):
+                args[var] = x
+                return func(*args)
+
+            return scipy.misc.derivative(wraps, point[var], dx=1e-5)
+
+        def f(x, y):
+            return (x - 3.3) ** 2 / 4 + (y + 1.7) ** 2 / 15
+
+        return np.array([partial_derivative(f, 0, [x[0], x[1]]), partial_derivative(f, 1, [x[0], x[1]])])
 
     def hess(self, x: np.ndarray):
         """
@@ -99,11 +108,11 @@ class f3:
                 args[var] = x
                 return func(*args)
 
-            return scipy.misc.derivative(wraps, point[var], dx=1e-6)
+            return scipy.misc.derivative(wraps, point[var], n = 2, dx=1e-5)
 
         def f(x, y):
             return (x - 3.3) ** 2 / 4 + (y + 1.7) ** 2 / 15
-        
+
         return np.array([partial_derivative(f, 0, [x[0], x[1]]), partial_derivative(f, 1, [x[0], x[1]])])
 
 class SquaredL2Norm:
