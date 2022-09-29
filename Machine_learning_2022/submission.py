@@ -58,10 +58,10 @@ class f2:
         def f(x):
             return np.sin(3 * np.sqrt(x ** 3) + 2) + x ** 2
 
-        if x > 2:
-            return scipy.misc.derivative(f, x, n = 2, dx=1e-5)
-        else:
+        if x < 2:
             return scipy.misc.derivative(f, x, n = 2, dx=1e-6)
+        else:
+            return scipy.misc.derivative(f, x, n = 2, dx=1e-5)
 
 class f3:
     def __call__(self, x: np.ndarray):
