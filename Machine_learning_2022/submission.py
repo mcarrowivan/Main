@@ -263,3 +263,59 @@ class Rosenbrok:
 
         hes_matrix = np.diag(fin) + np.diag(-400 * x[:-1], k=1) + np.diag(-400 * x[:-1], k=-1)
         return hes_matrix
+
+def minimize(
+        func: Callable,
+        x_init: np.ndarray,
+        learning_rate: Callable = lambda x: 0.1,
+        method: str = 'gd',
+        max_iter: int = 10_000,
+        stopping_criteria: str = 'function',
+        tolerance: float = 1e-2,
+) -> Tuple:
+    """
+    Args:
+        func: функция, у которой необходимо найти минимум (объект класса, который только что написали)
+            (у него должны быть методы: __call__, grad, hess)
+        x_init: начальная точка
+        learning_rate: коэффициент перед направлением спуска
+        method:
+            "gd" - Градиентный спуск
+            "newtone" - Метод Ньютона
+        max_iter: максимально возможное число итераций для алгоритма
+        stopping_criteria: когда останавливать алгоритм
+            'points' - остановка по норме разности точек на соседних итерациях
+            'function' - остановка по норме разности значений функции на соседних итерациях
+            'gradient' - остановка по норме градиента функции
+        tolerance: c какой точностью искать решение (участвует в критерии остановки)
+    Returns:
+        x_opt: найденная точка локального минимума
+        list_try: (list) список с историей точек
+        list_f: (list) список с историей значений функции
+        list_grad: (list) список с исторей значений градиентов функции
+    """
+
+    assert max_iter > 0, 'max_iter должен быть > 0'
+    assert method in ['gd', 'newtone'], 'method can be "gd" or "newtone"!'
+    assert stopping_criteria in ['points', 'function', 'gradient'], \
+        'stopping_criteria can be "points", "function" or "gradient"!'
+
+    f = func
+    list_try = [x_init]
+    list_f = [f(x_init)]
+    list_grad = [f.grad(x_init)]
+
+    for i in range(max_iter):
+        if method == 'gd':
+            x_new = x_init - learning_rate(i) * f.grad(x_init)
+
+            if stopping_criteria == 'points' and np.linalg.norm(x_new - x_init) < tolerance:
+                break
+            elif stopping_criteria == 'function' and np.linalg.norm(f(x_new) - f(x_init)) < tolerance:
+                break
+            elif stopping_criteria == 'gradient' and np.linalg.norm(f.grad(x_new)) < tolerance:
+                break
+            x_init = x_new
+            list_try.append(x_init)
+            list_grad.append(f.grad(x_init))
+            list_f.append(f(x_init))
