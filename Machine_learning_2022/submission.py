@@ -179,7 +179,7 @@ class Himmelblau:
         def f(x, y):
             return (x**2+y-11)**2+(x+y**2-7)**2
 
-        return np.array([[partial_derivative(f, 0, [x[0], x[1]]),0], [0,partial_derivative(f, 1, [x[0], x[1]])]])
+        return np.array(partial_derivative(f, 0, [x[0], x[1]]), partial_derivative(f, 1, [x[0], x[1]]))
 
     def hess(self, x: np.ndarray):
         """
