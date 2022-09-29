@@ -55,13 +55,7 @@ class f2:
         Returns :
             float
         """
-        def f(x):
-            return np.sin(3 * np.sqrt(x ** 3) + 2) + x ** 2
-
-        if x < 2:
-            return scipy.misc.derivative(f, x, n = 2, dx=1e-6)
-        else:
-            return scipy.misc.derivative(f, x, n = 2, dx=1e-5)
+        return -np.sin(3 * x ** (3 / 2) + 2) * 20.25 * x + np.cos(3 * x ** (3 / 2) + 2) * 2.25 / (x ** 0.5) + 2
 
 class f3:
     def __call__(self, x: np.ndarray):
@@ -202,7 +196,9 @@ class Himmelblau:
         Returns:
             numpy array of shape (2, 2)
         """
-        pass
+        return np.array(
+            [[12 * x[0] ** 2 + 4 * x[1] - 42, 4 * (x[0] + x[1])], [4 * (x[0] + x[1]), 4 * x[0] + 12 * x[1] ** 2 - 26]])
+
 
 class Rosenbrok:
     def __call__(self, x: np.ndarray):
