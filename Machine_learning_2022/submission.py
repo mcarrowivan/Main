@@ -46,18 +46,20 @@ class f2:
         def f(x):
             return np.sin(3 * np.sqrt(x ** 3) + 2) + x ** 2
 
-        return scipy.misc.derivative(f, 1.0, dx=1e-6)
+        return scipy.misc.derivative(f, x, dx=1e-6)
 
-    # def hess(self, x: float):
-    #     """
-    #     Args :
-    #         x : float
-    #     Returns :
-    #         float
-    #     """
-    #     ...
-    #
-    #     return
+    def hess(self, x: float):
+        """
+        Args :
+            x : float
+        Returns :
+            float
+        """
+        def f(x):
+            return np.sin(3 * np.sqrt(x ** 3) + 2) + x ** 2
+
+        return scipy.misc.derivative(f, x, n = 2, dx=1e-6)
+
 class f3:
     def __call__(self, x: np.ndarray):
         """
