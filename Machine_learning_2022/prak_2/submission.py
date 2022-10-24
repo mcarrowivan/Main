@@ -189,12 +189,12 @@ def find_best_split(feature_vector: np.ndarray, target_vector: np.ndarray, crite
             for value in split_values:
                 splits = _split(feature_vector, target_vector, value, return_X=False)
                 gain = parent_gini - _compute_splits_gini(target_vector, splits)
-                gain_list.append(round(gain, 3))
+                gain_list.append(gain)
 
                 if max_gain is None or gain > max_gain:
                     max_col, max_val, max_gain = column, value, gain
 
-        return split_values, np.array(gain_list), max_val, round(max_gain, 3)
+        return split_values, np.array(gain_list), max_val, max_gain
 
 
 class DecisionTree(BaseEstimator):
