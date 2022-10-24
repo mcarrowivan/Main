@@ -143,7 +143,7 @@ def find_best_split(feature_vector: np.ndarray, target_vector: np.ndarray, crite
             left_X, right_X = X[left_mask], X[right_mask]
             return left_X, right_X, left_y, right_y
 
-    def _find_splits(X, column):
+    def _find_splits(X):
         X_unique = np.unique(X)
         split_values = np.empty(X_unique.shape[0] - 1)
         for i in range(1, X_unique.shape[0]):
@@ -158,7 +158,7 @@ def find_best_split(feature_vector: np.ndarray, target_vector: np.ndarray, crite
         parent_entropy = entropy(target_vector)
 
         for column in subset:
-            split_values = _find_splits(feature_vector, column)
+            split_values = _find_splits(feature_vector)
             gain_list = []
             for value in split_values:
                 splits = _split(feature_vector, target_vector, value, return_X=False)
@@ -170,12 +170,12 @@ def find_best_split(feature_vector: np.ndarray, target_vector: np.ndarray, crite
 
         return split_values, np.array(gain_list), max_val, max_gain
     elif criterion == "gini":
-        subset = np.random.choice(feature_vector, 10000, replace=True)
+        subset = np.random.choice(feature_vector, 1000, replace=True)
         max_col, max_val, max_gain = None, None, None
         parent_gini = gini(target_vector, list(np.unique(y)))
 
         for column in subset:
-            split_values = _find_splits(feature_vector, column)
+            split_values = _find_splits(feature_vector)
             gain_list = []
             for value in split_values:
                 splits = _split(feature_vector, target_vector, value, return_X=False)
