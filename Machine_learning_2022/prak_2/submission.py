@@ -119,7 +119,6 @@ def find_best_split(feature_vector: np.ndarray, target_vector: np.ndarray, crite
         return np.sum(-p * np.log2(p) for p in probs)
 
     def _compute_splits_entropy(y, splits):
-        """compute the entropy for the splits (the two child nodes)"""
         splits_entropy = 0
         for split in splits:
             splits_entropy += (split.shape[0] / y.shape[0]) * entropy(split)
@@ -127,7 +126,6 @@ def find_best_split(feature_vector: np.ndarray, target_vector: np.ndarray, crite
         return splits_entropy
 
     def _compute_splits_gini(y, splits):
-        """compute the entropy for the splits (the two child nodes)"""
         splits_gini = 0
         for split in splits:
             splits_gini += (split.shape[0] / y.shape[0]) * gini(split, list(np.unique(y)))
@@ -135,7 +133,6 @@ def find_best_split(feature_vector: np.ndarray, target_vector: np.ndarray, crite
         return splits_gini
 
     def _split(X, y, value, return_X):
-        """split the response column using the cutoff threshold"""
         left_mask = X <= value
         right_mask = X > value
         left_y, right_y = y[left_mask], y[right_mask]
@@ -146,12 +143,7 @@ def find_best_split(feature_vector: np.ndarray, target_vector: np.ndarray, crite
             left_X, right_X = X[left_mask], X[right_mask]
             return left_X, right_X, left_y, right_y
 
-    def _find_splits(X, column):
-        """
-        find all possible split values (threshold),
-        by getting unique values in a sorted order
-        and finding cutoff point (average) between every two values
-        """
+    def _find_splits(X):
         X_unique = np.unique(X)
         split_values = np.empty(X_unique.shape[0] - 1)
         for i in range(1, X_unique.shape[0]):
@@ -177,7 +169,6 @@ def find_best_split(feature_vector: np.ndarray, target_vector: np.ndarray, crite
                     max_col, max_val, max_gain = column, value, gain
 
         return split_values, np.array(gain_list), max_val, max_gain
-
     else:
         subset = np.random.choice(feature_vector, 1000, replace=True)
         max_col, max_val, max_gain = None, None, None
