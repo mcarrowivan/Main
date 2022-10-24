@@ -172,7 +172,7 @@ def find_best_split(feature_vector: np.ndarray, target_vector: np.ndarray, crite
     else:
         subset = np.random.choice(feature_vector, 1000, replace=True)
         max_col, max_val, max_gain = None, None, None
-        parent_gini = gini(target_vector, list(np.unique(y)))
+        parent_gini = gini(target_vector, unq_vals)
 
         for column in subset:
             split_values = _find_splits(feature_vector, column)
