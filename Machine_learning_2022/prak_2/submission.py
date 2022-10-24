@@ -102,13 +102,13 @@ def find_best_split(feature_vector: np.ndarray, target_vector: np.ndarray, crite
         y = y.reshape(-1, )
         if not y.shape[0]:
             return 0
+        else:
+            probs = []
+            for cls in classes:
+                probs.append((y == cls).sum() / y.shape[0])
 
-        probs = []
-        for cls in classes:
-            probs.append((y == cls).sum() / y.shape[0])
-
-        p = np.array(probs)
-        return 1 - ((p * p).sum())
+            p = np.array(probs)
+            return 1 - ((p * p).sum())
 
     def entropy(y):
         probs = []
