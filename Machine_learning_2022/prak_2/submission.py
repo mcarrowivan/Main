@@ -143,7 +143,7 @@ def find_best_split(feature_vector: np.ndarray, target_vector: np.ndarray, crite
             left_X, right_X = X[left_mask], X[right_mask]
             return left_X, right_X, left_y, right_y
 
-    def _find_splits(X):
+    def _find_splits(X, column):
         X_unique = np.unique(X)
         split_values = np.empty(X_unique.shape[0] - 1)
         for i in range(1, X_unique.shape[0]):
