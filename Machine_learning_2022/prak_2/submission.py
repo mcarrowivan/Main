@@ -186,7 +186,7 @@ def find_best_split(feature_vector: np.ndarray, target_vector: np.ndarray, crite
                     max_col, max_val, max_gain = column, value, gain
 
         return split_values, np.array(gain_list), max_val, round(max_gain, 3)
-
+# цумльлкфид
 
 class DecisionTree(BaseEstimator):
 
